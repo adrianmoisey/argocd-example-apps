@@ -18,3 +18,9 @@ spec:
         name: guestbook-ui
         ports:
         - containerPort: 80
+        env:
+        - name: TEST1
+          value: test1
+        - name: TEST2
+          value: test2
+
