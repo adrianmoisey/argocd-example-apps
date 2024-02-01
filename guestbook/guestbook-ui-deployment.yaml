@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: guestbook-ui
 spec:
+  minReadySeconds: 0
   replicas: 1
   revisionHistoryLimit: 3
   selector:
