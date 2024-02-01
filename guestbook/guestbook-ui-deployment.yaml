@@ -22,5 +22,12 @@ spec:
           name: http
         env:
         - name: TEST2
-          value: test2
-
+          value: test
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: topology.kubernetes.io/zone
+      whenUnsatisfiable: ScheduleAnyway
+      labelSelector:
+        matchLabels: 
+          app: guestbook-ui
+      nodeTaintsPolicy: Honor
