@@ -21,8 +21,8 @@ spec:
         - containerPort: 80
           name: http
         env:
-        - name: TEST2
-          value: test
+        - name: CELL
+          value: cell-1
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: topology.kubernetes.io/zone
