@@ -11,4 +11,5 @@ spec:
       containers:
       - name: migration
         image: ubuntu
-        command: date
+        command:
+        - date
