@@ -11,7 +11,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: migration
-        image: ubuntu
+        image: quay.io/curl/curl:latest
         command:
         - curl
         - https://hq.changeover.za.net/healthz?starting_deployment
@@ -29,7 +29,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: migration
-        image: ubuntu
+        image: quay.io/curl/curl:latest
         command:
         - curl
         - https://hq.changeover.za.net/healthz?running_migration
@@ -47,7 +47,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: migration
-        image: ubuntu
+        image: quay.io/curl/curl:latest
         command:
         - curl
         - https://hq.changeover.za.net/healthz?finished_deploying
