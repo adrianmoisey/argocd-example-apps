@@ -51,3 +51,21 @@ spec:
         command:
         - curl
         - https://hq.changeover.za.net/healthz?finished_deploying
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: failure-example-db-migration
+  annotations:
+    argocd.argoproj.io/hook: SyncFail
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: migration
+        image: quay.io/curl/curl:latest
+        command:
+        - curl
+        - https://hq.changeover.za.net/healthz?failing_deployment
