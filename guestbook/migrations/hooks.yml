@@ -54,7 +54,7 @@ spec:
         image: quay.io/curl/curl:latest
         command:
         - sleep
-        - 30
+        - "30"
 #---
 #apiVersion: batch/v1
 #kind: Job
