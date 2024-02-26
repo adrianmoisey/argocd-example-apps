@@ -1,0 +1,36 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pre-sync-hook
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: migration
+        image: quay.io/curl/curl:latest
+        command:
+        - curl
+        - https://hq.changeover.za.net/healthz?pre-sync-hook
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-sync-hook
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: migration
+        image: quay.io/curl/curl:latest
+        command:
+        - curl
+        - https://hq.changeover.za.net/healthz?post-sync-hook

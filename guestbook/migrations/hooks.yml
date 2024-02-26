@@ -14,7 +14,7 @@ spec:
         image: quay.io/curl/curl:latest
         command:
         - curl
-        - https://hq.changeover.za.net/healthz?starting_deployment
+        - https://hq.changeover.za.net/healthz?pre-sync-migration-100
 ---
 apiVersion: batch/v1
 kind: Job
@@ -34,7 +34,7 @@ spec:
         image: quay.io/curl/curl:latest
         command:
         - curl
-        - https://hq.changeover.za.net/healthz?running_migration
+        - https://hq.changeover.za.net/healthz?pre-sync-migration0
 ---
 apiVersion: batch/v1
 kind: Job
@@ -55,39 +55,3 @@ spec:
         command:
         - sleep
         - "30"
-#---
-#apiVersion: batch/v1
-#kind: Job
-#metadata:
-#  name: post-deploy-example-db-migration
-#  annotations:
-#    argocd.argoproj.io/hook: PostSync
-#    argocd.argoproj.io/sync-wave: "0"
-#spec:
-#  template:
-#    spec:
-#      restartPolicy: Never
-#      containers:
-#      - name: migration
-#        image: quay.io/curl/curl:latest
-#        command:
-#        - curl
-#        - https://hq.changeover.za.net/healthz?finished_deploying
-#---
-#apiVersion: batch/v1
-#kind: Job
-#metadata:
-#  name: failure-example-db-migration
-#  annotations:
-#    argocd.argoproj.io/hook: SyncFail
-#    argocd.argoproj.io/sync-wave: "0"
-#spec:
-#  template:
-#    spec:
-#      restartPolicy: Never
-#      containers:
-#      - name: migration
-#        image: quay.io/curl/curl:latest
-#        command:
-#        - curl
-#        - https://hq.changeover.za.net/healthz?failing_deployment
