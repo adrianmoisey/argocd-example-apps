@@ -23,6 +23,8 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "0"
+  label:
+    thing: thing
 spec:
   template:
     spec:
@@ -37,10 +39,12 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: post-deploy-example-db-migration
+  name: pre-deploy-example-db-migration-long
   annotations:
-    argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "1"
+  label:
+    thing: thing
 spec:
   template:
     spec:
@@ -49,23 +53,41 @@ spec:
       - name: migration
         image: quay.io/curl/curl:latest
         command:
-        - curl
-        - https://hq.changeover.za.net/healthz?finished_deploying
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: failure-example-db-migration
-  annotations:
-    argocd.argoproj.io/hook: SyncFail
-    argocd.argoproj.io/sync-wave: "0"
-spec:
-  template:
-    spec:
-      restartPolicy: Never
-      containers:
-      - name: migration
-        image: quay.io/curl/curl:latest
-        command:
-        - curl
-        - https://hq.changeover.za.net/healthz?failing_deployment
+        - sleep
+        - 30
+#---
+#apiVersion: batch/v1
+#kind: Job
+#metadata:
+#  name: post-deploy-example-db-migration
+#  annotations:
+#    argocd.argoproj.io/hook: PostSync
+#    argocd.argoproj.io/sync-wave: "0"
+#spec:
+#  template:
+#    spec:
+#      restartPolicy: Never
+#      containers:
+#      - name: migration
+#        image: quay.io/curl/curl:latest
+#        command:
+#        - curl
+#        - https://hq.changeover.za.net/healthz?finished_deploying
+#---
+#apiVersion: batch/v1
+#kind: Job
+#metadata:
+#  name: failure-example-db-migration
+#  annotations:
+#    argocd.argoproj.io/hook: SyncFail
+#    argocd.argoproj.io/sync-wave: "0"
+#spec:
+#  template:
+#    spec:
+#      restartPolicy: Never
+#      containers:
+#      - name: migration
+#        image: quay.io/curl/curl:latest
+#        command:
+#        - curl
+#        - https://hq.changeover.za.net/healthz?failing_deployment
