@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: starting-deploy-example
+  name: migration-pre-sync
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "-100"
@@ -14,12 +14,12 @@ spec:
         image: quay.io/curl/curl:latest
         command:
         - curl
-        - https://hq.changeover.za.net/healthz?pre-sync-migration-100
+        - https://hq.changeover.za.net/healthz?migration-pre-sync-100
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pre-deploy-example-db-migration
+  name: migration-pre-sync-0
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "0"
@@ -34,12 +34,12 @@ spec:
         image: quay.io/curl/curl:latest
         command:
         - curl
-        - https://hq.changeover.za.net/healthz?pre-sync-migration0
+        - https://hq.changeover.za.net/healthz?migration-pre-sync0
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pre-deploy-example-db-migration-long
+  name: migration-pre-sync-sleep
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "1"

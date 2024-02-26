@@ -15,7 +15,7 @@ spec:
         image: quay.io/curl/curl:latest
         command:
         - curl
-        - https://hq.changeover.za.net/healthz?pre-sync-hook
+        - https://hq.changeover.za.net/healthz?deployment-pre-sync
 ---
 apiVersion: batch/v1
 kind: Job
@@ -33,4 +33,4 @@ spec:
         image: quay.io/curl/curl:latest
         command:
         - curl
-        - https://hq.changeover.za.net/healthz?post-sync-hook
+        - https://hq.changeover.za.net/healthz?deployment-post-sync
