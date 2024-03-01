@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: guestbook-ui
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   minReadySeconds: 0
   replicas: 2
